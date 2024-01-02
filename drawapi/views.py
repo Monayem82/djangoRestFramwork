@@ -20,7 +20,7 @@ def tcoursView_ins(request,pk):
     tcs=TeacherCoures.objects.get(id=pk)
     # Creating a Dictionary 
     serializer=TeacherCouresSerializer(tcs)
-    # render a JSon data ===
+    # render a JSon data =
     json_data=JSONRenderer().render(serializer.data)
     
     return HttpResponse(json_data,content_type='application/json')
