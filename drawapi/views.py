@@ -8,9 +8,19 @@ from django.http import HttpResponse
 def tcoursView(request):
     # complex data
     tcs=TeacherCoures.objects.all()
-
+    # Creating a Dictionary 
     serializer=TeacherCouresSerializer(tcs,many=True)
+    # render a JSon data
+    json_data=JSONRenderer().render(serializer.data)
+    
+    return HttpResponse(json_data,content_type='application/json')
 
+def tcoursView_ins(request,pk):
+    # complex data
+    tcs=TeacherCoures.objects.get(id=pk)
+    # Creating a Dictionary 
+    serializer=TeacherCouresSerializer(tcs)
+    # render a JSon data ===
     json_data=JSONRenderer().render(serializer.data)
     
     return HttpResponse(json_data,content_type='application/json')
