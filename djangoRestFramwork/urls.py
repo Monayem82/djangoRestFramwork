@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('drawapi/', include('drawapi.urls')),
+    path('runapi/', include('runapi.urls')),
 ]
