@@ -1,7 +1,7 @@
 from rest_framework import serializers
+from drawapi.models import TeacherCoures
 
-class TeacherCouresSerializer(serializers.Serializer):
-    teacher_name=serializers.CharField(max_length=25)
-    course_name=serializers.CharField(max_length=30)
-    course_duration=serializers.IntegerField()
-    seat=serializers.IntegerField()
+class TeacherCouresSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=TeacherCoures
+        fields=['id','teacher_name','course_name','course_duration','seat']

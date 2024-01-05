@@ -18,5 +18,3 @@ def EachstudenJsonView(request,st):
     json_data=JSONRenderer().render(serializer.data)
 
     return HttpResponse(json_data,content_type='application/json')
-
-
