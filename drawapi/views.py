@@ -9,7 +9,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 
-@api_view(['GET'])
+
+# api_view in GET operations 
+@api_view(['GET','POST','PUT','PATCH','DELETE'])
 def teacherCoursCreateView(request,pk=None):
     if request.method=="GET":
         id=pk
@@ -25,9 +27,38 @@ def teacherCoursCreateView(request,pk=None):
             serializer=TeacherCouresSerializer(tdata,many=True)
             return Response(serializer.data)
 
+    if request.method=='POST':
+        serializer=TeacherCouresSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            res={"smg":"Successfully data insert"}
+            return Response(res)
+        return Response(serializer.errors)
 
 
-
+    if request.method=="PUT":
+        id=pk
+        tdatas=TeacherCoures.objects.get(id=id)
+        seriliz=TeacherCouresSerializer(tdatas,data=request.data)
+        if seriliz.is_valid():
+            seriliz.save()
+            return Response({"res":"insert PUT"})
+        return Response(seriliz.errors)
+    
+    if request.method=="PATCH":
+        id=pk
+        tdatas=TeacherCoures.objects.get(id=id)
+        seriliz=TeacherCouresSerializer(tdatas,data=request.data,partial=True)
+        if seriliz.is_valid():
+            seriliz.save()
+            return Response({"res":"insert PATCH"})
+        return Response(seriliz.errors)
+    
+    if request.method=='DELETE':
+        id=pk
+        tdata_d=TeacherCoures.objects.get(id=id)
+        tdata_d.delete()
+        return Response({"res":"Successfully data delete"})
 
 
 
